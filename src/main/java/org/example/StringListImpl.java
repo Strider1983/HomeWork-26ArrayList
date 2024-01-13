@@ -1,24 +1,58 @@
 package org.example;
 
+import org.example.exeptions.CellIsNotEmptyExeption;
+import org.example.exeptions.ItemNotFoundExeption;
+
+import java.util.Arrays;
+
 public class StringListImpl implements StringList{
+    String items[] = new String[5];
     @Override
     public String add(String item) {
-        return null;
+        for (int i = 0; i < items.length; i++) {
+            if (items[i] == null) {
+                items[i] = item;
+                break;
+            }
+        }
+        return item;
     }
 
     @Override
     public String addToSpecCell(int index, String item) {
-        return null;
+        if (items[index] == null) {
+            items[index] = item;
+        } else {
+            throw new CellIsNotEmptyExeption("данная ячейка массива уже занята");
+        }
+        return item;
     }
 
     @Override
     public String set(int index, String item) {
-        return null;
+        items[index] = item;
+        return item;
     }
 
     @Override
     public String remove(String item) {
-        return null;
+        boolean checkItem = false;
+        for (String element:items) {
+            if (element == item) {
+                checkItem = true;
+                break;
+            }
+        }
+        if (checkItem == false) {
+            throw new ItemNotFoundExeption("указанный элемент массива не найден");
+        } else {
+            for (int i = 0; i < items.length; i++) {
+                if (items[i] == item) {
+                    items[i] = null;
+                }
+            }
+            return item;
+        }
     }
 
     @Override
