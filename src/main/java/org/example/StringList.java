@@ -10,7 +10,7 @@ public interface StringList {
     int indexOf(String item);
     int lastIndexOf(String item);
     String get(int index);
-    boolean equals(StringList otherList);
+    boolean equals(StringList otherList[]);
     int size();
     boolean isEmpty();
     void clear();

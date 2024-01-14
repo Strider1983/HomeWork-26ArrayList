@@ -3,6 +3,7 @@ package org.example;
 import org.example.exeptions.CellIsNotEmptyExeption;
 import org.example.exeptions.ItemNotFoundExeption;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 
 public class StringListImpl implements StringList{
@@ -57,22 +58,47 @@ public class StringListImpl implements StringList{
 
     @Override
     public String removeByIndex(int index) {
-        return null;
+        if (items[index] == null) {
+            throw new ItemNotFoundExeption("элемент с указанным индексом отсуствует в массиве");
+        } else {
+            items[index] = null;
+        }
+        return items[index];
     }
 
     @Override
     public boolean contains(String item) {
-        return false;
+        boolean contains = false;
+        for (String element:items) {
+            if (element == item) {
+                 contains = true;
+                 break;
+            }
+
+        }
+        return contains;
     }
 
     @Override
     public int indexOf(String item) {
-        return 0;
+        int index = -1;
+        for (int i = 0; i < items.length; i++) {
+            if (items[i] == item) {
+                index = i;
+            }
+        }
+        return index;
     }
 
     @Override
     public int lastIndexOf(String item) {
-        return 0;
+        int index = -1;
+        for (int i = items.length-1; i >= 0; i--) {
+            if (items[i] == item) {
+                index = i;
+            }
+        }
+        return index;
     }
 
     @Override
@@ -81,27 +107,46 @@ public class StringListImpl implements StringList{
     }
 
     @Override
-    public boolean equals(StringList otherList) {
-        return false;
+    public boolean equals(StringList otherList[]) {
+        return Arrays.equals(items, otherList);
     }
 
     @Override
     public int size() {
-        return 0;
+        int count = 0;
+        for (int i = 0; i < items.length; i++) {
+            if (items[i] != null) {
+                count = count + 1;
+            }
+        }
+        return count;
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        boolean isEmpty = true;
+        for (String element:items
+             ) {
+            if (element != null) {
+                isEmpty = false;
+            }
+        }
+        return isEmpty;
     }
 
     @Override
     public void clear() {
-
+        for (int i = 0; i < items.length; i++) {
+            if (items[i] != null) {
+                items[i] = null;
+            }
+        }
     }
 
     @Override
     public String[] toArray() {
-        return new String[0];
+        String[] newString = Arrays.copyOf(items, items.length);
+        System.out.println(Arrays.toString(newString));
+        return newString;
     }
 }
