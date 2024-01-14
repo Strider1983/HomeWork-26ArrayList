@@ -7,7 +7,7 @@ import java.lang.reflect.Array;
 import java.util.Arrays;
 
 public class StringListImpl implements StringList{
-    String items[] = new String[5];
+    String items[] = new String[3];
     @Override
     public String add(String item) {
         for (int i = 0; i < items.length; i++) {
@@ -58,6 +58,7 @@ public class StringListImpl implements StringList{
 
     @Override
     public String removeByIndex(int index) {
+
         if (items[index] == null) {
             throw new ItemNotFoundExeption("элемент с указанным индексом отсуствует в массиве");
         } else {
@@ -107,7 +108,7 @@ public class StringListImpl implements StringList{
     }
 
     @Override
-    public boolean equals(StringList otherList[]) {
+    public boolean equals(String[] otherList) {
         return Arrays.equals(items, otherList);
     }
 
@@ -146,7 +147,6 @@ public class StringListImpl implements StringList{
     @Override
     public String[] toArray() {
         String[] newString = Arrays.copyOf(items, items.length);
-        System.out.println(Arrays.toString(newString));
         return newString;
     }
 }
